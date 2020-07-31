@@ -1,0 +1,98 @@
+body {
+    background-color: gainsboro;
+    color: black;
+}
+
+#listContainer {
+    border: 1px solid rgba(149, 141, 141, 0.75);
+    width: 50%;
+    height: 70%;
+    background-color: #fffafa;
+    margin: 3em auto;
+    min-width: 350px;
+}
+
+h1 {
+    text-align: center;
+    font-family: Parisienne;
+    font-size: 4em;
+    color: #575757;
+}
+
+p {
+    font-size: 1.8em;
+    font-family: Caveat;
+    color: #575757;
+    width: 80%;
+    margin-left: 2.5em;
+    margin-right: 2.5em;
+    text-align: left;
+}
+#input-div {
+    padding: 0.5em;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 1em;
+}
+
+input {
+    width: 8em;
+    font-size: 2em;
+    font-family: Caveat;
+    border: 1px solid #b4aeae;
+    background-color: #fffafa;
+    border-radius: 20px;
+    padding: 0.3em;
+
+}
+.thingsToDo {
+    width: 80%;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin-bottom: 2em;
+}
+
+.deleteButton {
+    cursor: pointer;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 1em 1em 1em 3em;
+    background-image: url("kisspng-x-mark-check-mark-clip-art-wrong-sign-5b12e998675839.8614187915279661044233.png");
+    background-size: 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+.checkButton {
+    cursor: pointer;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 1em;
+    background-color: #fdf1f1;
+}
+
+.marked {
+    background-image: url('checkButton.png');
+    background-size: 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.strikethroughText {
+    text-decoration: line-through rgba(255, 30, 0, 0.43);
+
+}
+
+
+#tasksCounter {
+    text-align: center;
+}
+
+#countingText {
+    font-size: 1.5em;
+    font-family: Caveat;
+    color: rgba(151, 149, 149, 0.99);
+    margin: 1em auto;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(245, 243, 243, 0.91);
+}
