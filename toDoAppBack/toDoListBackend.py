@@ -70,7 +70,8 @@ def appendThingsToSend():
         thingToSend = {
             'id': thing[0],
             'text': thing[1],
-            'done': thing[2]
+            'done': thing[2],
+            'created': thing[3]
         }
         thingsToJS.append(thingToSend)
 
@@ -81,16 +82,21 @@ def appendThingsToSend():
 def pickUpNewThingToDo():
     newThingToDo = request.json
     createdThing = {'text': newThingToDo['text'],
-                    'done': newThingToDo['done'],
+                    'done': newThingToDo['done']
                     }
-
     saveToDatabase(createdThing)
     thingsToSend = pickUpThingsFromDatabase()
-    print("things to send", thingsToSend)
+    for thing in thingsToSend:
+        thingToSend = {
+            'id': thing[0],
+            'text': thing[1],
+            'done': thing[2],
+            'created': thing[3]
+        }
 
-    if createdThing not in thingsToSend:  # to refactor
-        thingsToSend.append(createdThing)
-    return jsonify(createdThing)
+    print("things to send", thingToSend)
+
+    return jsonify(thingToSend)
 
 
 @app.route('/things/<id>', methods=['DELETE'])
