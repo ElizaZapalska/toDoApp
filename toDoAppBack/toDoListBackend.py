@@ -31,49 +31,64 @@ def saveToDatabase(thing):
         thing['done'] = 0
     createdDay = str(datetime.date.today())
     thingSavedInDatabase = (thing['text'], thing['done'], createdDay)
-    print('thingSavedInDatabase', thingSavedInDatabase)
     cursor.execute(sql, thingSavedInDatabase)
     database.commit()
 
 
-# use i it to iterate and create id
-i = 0
+def pickUpThingsFromDatabase():
+    cursor = database.cursor()
+    cursor.execute("SELECT * FROM things")
+    databaseThings = cursor.fetchall()
+    print("databaseThings:", databaseThings)
+    return databaseThings
 
 
-def getId():
-    global i
-    i += 1
-    return i
+def removeFromDatabase(id):
+    cursor = database.cursor()
+    print('dupa')
+    sql = "DELETE FROM things WHERE id = %s" % str(id)
+    cursor.execute(sql)
+    database.commit()
+
+
+def updateDatabase(done, id):
+    cursor = database.cursor()
+    print('elooooo')
+    print('done', done)
+    print(type(done), "type of doneee")
+
+    sql = "UPDATE things SET is_done = %s WHERE id = %s" % (str(done), str(id))
+    cursor.execute(sql)
+    database.commit()
 
 
 @app.route('/things', methods=['GET'])
 def appendThingsToSend():
-    for thing in toDoThings:
-        if toDoThings[thing] in thingsToSend:
-            break
-        else:
-            saveToDatabase(toDoThings[thing])
-            thingsToSend.append(toDoThings[thing])
-
-    print('sendToJs', thingsToSend)
+    thingsToSend = pickUpThingsFromDatabase()
+    thingsToJS = []
     for thing in thingsToSend:
-        print('test', thing)
-    return jsonify(thingsToSend)
+        thingToSend = {
+            'id': thing[0],
+            'text': thing[1],
+            'done': thing[2]
+        }
+        thingsToJS.append(thingToSend)
+
+    return jsonify(thingsToJS)
 
 
 @app.route('/things', methods=['POST'])
 def pickUpNewThingToDo():
     newThingToDo = request.json
-    newThingToDo['id'] = getId()
-    id = newThingToDo['id']
-    toDoThings[id] = newThingToDo
     createdThing = {'text': newThingToDo['text'],
                     'done': newThingToDo['done'],
-                    'id': newThingToDo['id']
                     }
 
     saveToDatabase(createdThing)
-    if createdThing not in thingsToSend:
+    thingsToSend = pickUpThingsFromDatabase()
+    print("things to send", thingsToSend)
+
+    if createdThing not in thingsToSend:  # to refactor
         thingsToSend.append(createdThing)
     return jsonify(createdThing)
 
@@ -83,8 +98,7 @@ def removeElement(id):
     thingToRemove = request.json
     deletedThingId = int(id)
     try:
-        thingsToSend.remove(toDoThings[deletedThingId])
-        toDoThings.pop(deletedThingId)
+        removeFromDatabase(deletedThingId)
     except KeyError:
         abort(404)
 
@@ -95,9 +109,7 @@ def removeElement(id):
 def markTaskDone(id):
     checkedThing = request.json
     try:
-        checkedTaskId = int(id)
-        value = toDoThings[checkedTaskId]
-        value['done'] = checkedThing['done']
+        updateDatabase(checkedThing['done'], id)
     except KeyError:
         abort(404)
 
