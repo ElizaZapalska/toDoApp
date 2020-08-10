@@ -10,7 +10,6 @@ toDoThings = {}
 thingsToSend = []
 database = None
 
-
 def initDatabase():
     global database
     database = mysql.connector.connect(
@@ -64,6 +63,7 @@ def updateDatabase(done, id):
 
 @app.route('/things', methods=['GET'])
 def appendThingsToSend():
+    print('hejkaaaaa')
     thingsToSend = pickUpThingsFromDatabase()
     thingsToJS = []
     for thing in thingsToSend:
@@ -71,11 +71,9 @@ def appendThingsToSend():
             'id': thing[0],
             'text': thing[1],
             'done': thing[2],
-            'created': thing[3]
         }
         thingsToJS.append(thingToSend)
-
-    return jsonify(thingsToJS)
+    return jsonify(thingsToSend)
 
 
 @app.route('/things', methods=['POST'])
@@ -94,7 +92,7 @@ def pickUpNewThingToDo():
             'created': thing[3]
         }
 
-    print("things to send", thingToSend)
+    print("things to send", thingsToSend)
 
     return jsonify(thingToSend)
 
@@ -123,6 +121,4 @@ def markTaskDone(id):
     return checkedThing
 
 
-if __name__ == "__main__":
-    initDatabase()
-    app.run(debug=True)
+initDatabase()
