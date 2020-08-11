@@ -27,12 +27,13 @@ inputWithText.addEventListener("keyup", function(event) {
     function takeSavedValues(response) {
         if (response.readyState === 4) {
             const savedTasks = JSON.parse(response.response)
+            console.log('savedTasks', savedTasks)
             const tasksAmount = savedTasks.length
             tasksCounter.innerHTML = `--------You have ${tasksAmount} saved tasks--------`
             for (const element of savedTasks) {
-                const text = element.text
-                const isDone = element.done
-                const id = element.id
+                const text = element[1]
+                const isDone = element[2]
+                const id = element[0]
                 addThing(text, isDone, id )
             }
         }
@@ -49,9 +50,9 @@ inputWithText.addEventListener("keyup", function(event) {
     function sendNewThingToDo(thingText) {
         const thingToDo = {
             text: thingText,
-            done: false
+            done: 0
         }
-        console.log(thingToDo)
+        console.log('thing to do', thingToDo)
         const httpRequest = new XMLHttpRequest();
         httpRequest.open('POST', urlRequest);
         console.log(urlRequest)
@@ -76,7 +77,7 @@ inputWithText.addEventListener("keyup", function(event) {
         const text = createText(thingText);
         const checkButton = createCheckButton();
         const deleteButton = createDeleteButton();
-        const newParagraph = createParagraph(text, checkButton, deleteButton, thingId);
+        const newParagraph = createParagraph(text, checkButton, deleteButton, thingId, isDone);
         const divThingsToDo = document.getElementById('thingsToDo');
         divThingsToDo.appendChild(newParagraph)
         deleteButton.onclick = () => removeParagraph(newParagraph, isDone, thingId)
@@ -113,8 +114,19 @@ inputWithText.addEventListener("keyup", function(event) {
 
     }
 
-    function createParagraph(thingText, checkButton, deleteButton, thingId) {
+    function createParagraph(thingText, checkButton, deleteButton, thingId, isDone) {
         let newParagraph = document.createElement('p');
+        //smietnik
+        if (isDone === 0) {
+            checkButton.classList.remove('marked');
+            thingText.classList.remove('strikethroughText')
+            markTaskDoneBackend(thingText, 0, thingId)
+        } else {
+            checkButton.classList.add('marked');
+            thingText.classList.add('strikethroughText')
+            //markTaskDoneBackend(thingText, 1, thingId)
+        }
+        //smietnik
         newParagraph.appendChild(deleteButton)
         newParagraph.appendChild(checkButton)
         newParagraph.appendChild(thingText)
@@ -141,18 +153,18 @@ inputWithText.addEventListener("keyup", function(event) {
         if (button.classList.contains('marked')) {
             button.classList.remove('marked');
             thingText.classList.remove('strikethroughText')
-            markTaskDoneBackend(thingText, false, thingId)
+            markTaskDoneBackend(thingText, 0, thingId)
         } else {
             button.classList.add('marked');
             thingText.classList.add('strikethroughText')
-            markTaskDoneBackend(thingText, true, thingId)
+            markTaskDoneBackend(thingText, 1, thingId)
         }
 
     }
 
     function markTaskDoneBackend(thingText, isDone, thingId) {
         const taskDone = {
-            text: thingText,
+            text: thingText.innerText,
             done: isDone,
             id: thingId
         }

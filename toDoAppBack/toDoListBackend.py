@@ -92,7 +92,7 @@ def pickUpNewThingToDo():
             'created': thing[3]
         }
 
-    print("things to send", thingsToSend)
+    print("things to send", thingToSend)
 
     return jsonify(thingToSend)
 
