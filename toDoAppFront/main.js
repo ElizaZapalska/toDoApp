@@ -31,9 +31,9 @@ inputWithText.addEventListener("keyup", function(event) {
             const tasksAmount = savedTasks.length
             tasksCounter.innerHTML = `--------You have ${tasksAmount} saved tasks--------`
             for (const element of savedTasks) {
-                const text = element[1]
-                const isDone = element[2]
-                const id = element[0]
+                const text = element.text
+                const isDone = element.done
+                const id = element.id
                 addThing(text, isDone, id )
             }
         }
@@ -116,17 +116,14 @@ inputWithText.addEventListener("keyup", function(event) {
 
     function createParagraph(thingText, checkButton, deleteButton, thingId, isDone) {
         let newParagraph = document.createElement('p');
-        //smietnik
         if (isDone === 0) {
             checkButton.classList.remove('marked');
             thingText.classList.remove('strikethroughText')
-            markTaskDoneBackend(thingText, 0, thingId)
         } else {
             checkButton.classList.add('marked');
             thingText.classList.add('strikethroughText')
-            //markTaskDoneBackend(thingText, 1, thingId)
         }
-        //smietnik
+
         newParagraph.appendChild(deleteButton)
         newParagraph.appendChild(checkButton)
         newParagraph.appendChild(thingText)

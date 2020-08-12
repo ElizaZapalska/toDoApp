@@ -19,7 +19,6 @@ database = mysql.connector.connect(
 def saveToDatabase(thing):
     cursor = database.cursor()
     sql = "INSERT INTO things (text, is_done, created) VALUES (%s, %s, %s)"
-    print('thing', thing)
     if thing['done']:
         thing['done'] = 1
     else:
@@ -40,7 +39,6 @@ def pickUpThingsFromDatabase():
 
 def removeFromDatabase(id):
     cursor = database.cursor()
-    print('dupa')
     sql = "DELETE FROM things WHERE id = %s" % str(id)
     cursor.execute(sql)
     database.commit()
@@ -48,10 +46,6 @@ def removeFromDatabase(id):
 
 def updateDatabase(done, id):
     cursor = database.cursor()
-    print('elooooo')
-    print('done', done)
-    print(type(done), "type of doneee")
-
     sql = "UPDATE things SET is_done = %s WHERE id = %s" % (str(done), str(id))
     cursor.execute(sql)
     database.commit()
@@ -59,7 +53,6 @@ def updateDatabase(done, id):
 
 @app.route('/things', methods=['GET'])
 def appendThingsToSend():
-    print('hejkaaaaa')
     thingsToSend = pickUpThingsFromDatabase()
     thingsToJS = []
     for thing in thingsToSend:
@@ -69,7 +62,7 @@ def appendThingsToSend():
             'done': thing[2],
         }
         thingsToJS.append(thingToSend)
-    return jsonify(thingsToSend)
+    return jsonify(thingsToJS)
 
 
 @app.route('/things', methods=['POST'])
