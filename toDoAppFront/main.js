@@ -96,19 +96,22 @@ inputWithText.addEventListener("keyup", function(event) {
 
     function createText(writtenThing) {
         const spanWithText = document.createElement('span');
+        spanWithText.setAttribute('class', 'thingText')
         spanWithText.innerText = writtenThing;
         return spanWithText;
     }
 
     function createCheckButton() {
-        let checkButton = document.createElement('button');
+        let checkButton = document.createElement('img');
+        checkButton.setAttribute('class', 'buttons');
         checkButton.setAttribute('class', 'checkButton');
         return checkButton;
 
     }
 
     function createDeleteButton() {
-        let deleteButton = document.createElement('button');
+        let deleteButton = document.createElement('img');
+        deleteButton.setAttribute('class', 'buttons');
         deleteButton.setAttribute('class', 'deleteButton');
         return deleteButton;
 
@@ -124,9 +127,9 @@ inputWithText.addEventListener("keyup", function(event) {
             thingText.classList.add('strikethroughText')
         }
 
-        newParagraph.appendChild(deleteButton)
         newParagraph.appendChild(checkButton)
         newParagraph.appendChild(thingText)
+        newParagraph.appendChild(deleteButton)
         newParagraph.id = thingId;
         return newParagraph;
 

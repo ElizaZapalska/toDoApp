@@ -7,9 +7,10 @@ body {
     border: 1px solid rgba(149, 141, 141, 0.75);
     width: 50%;
     height: 70%;
-    background-color: #fffafa;
+    background-color: #ffffff;
     margin: 3em auto;
     min-width: 350px;
+    text-align: center;
 }
 
 h1 {
@@ -24,9 +25,11 @@ p {
     font-family: Caveat;
     color: #575757;
     width: 80%;
-    margin-left: 2.5em;
-    margin-right: 2.5em;
+    margin: 10px 50px;
     text-align: left;
+    display: inline-block;
+    background-color: rgba(248, 248, 248, 0.92);
+    box-shadow: 5px 5px #f3f2f2;
 }
 #input-div {
     padding: 0.5em;
@@ -40,7 +43,7 @@ input {
     font-size: 2em;
     font-family: Caveat;
     border: 1px solid #b4aeae;
-    background-color: #fffafa;
+    background-color: rgba(252, 252, 252, 0.73);
     border-radius: 20px;
     padding: 0.3em;
 
@@ -50,24 +53,29 @@ input {
     word-wrap: break-word;
     word-break: break-all;
     margin-bottom: 2em;
+    text-align: center;
 }
 
 .deleteButton {
     cursor: pointer;
-    width: 1.5em;
-    height: 1.5em;
-    margin: 1em 1em 1em 3em;
-    background-image: url("kisspng-x-mark-check-mark-clip-art-wrong-sign-5b12e998675839.8614187915279661044233.png");
+    width: 25px;
+    height: 25px;
+    margin: 10px;
+    background-image: url('trash-bin-symbol_318-10194.jpg');
     background-size: 100%;
     background-position: 50% 50%;
     background-repeat: no-repeat;
+    float: right;
+    vertical-align: middle;
+    border: none;
 }
 .checkButton {
     cursor: pointer;
-    width: 1.5em;
-    height: 1.5em;
-    margin: 1em;
-    background-color: #fdf1f1;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    background-color: #ffffff;
+
 }
 
 .marked {
@@ -78,21 +86,35 @@ input {
 }
 
 .strikethroughText {
-    text-decoration: line-through rgba(255, 30, 0, 0.43);
+    text-decoration: line-through rgba(34, 121, 245, 0.43);
 
 }
 
 
 #tasksCounter {
     text-align: center;
+
 }
 
 #countingText {
     font-size: 1.5em;
     font-family: Caveat;
-    color: rgba(151, 149, 149, 0.99);
+    color: rgba(177, 177, 177, 0.99);
     margin: 1em auto;
     width: 100%;
     text-align: center;
-    background-color: rgba(245, 243, 243, 0.91);
+    background-color: rgba(252, 252, 252, 0.6);
+    box-shadow: none;
+}
+.buttons {
+    display: inline-block;
+    vertical-align: middle;
+}
+.thingText {
+
+    margin: 10px 20px;
+}
+
+#thingsToDo {
+    margin: 0 auto;
 }
