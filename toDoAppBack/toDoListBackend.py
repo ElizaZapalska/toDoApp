@@ -8,16 +8,12 @@ CORS(app)
 
 toDoThings = {}
 thingsToSend = []
-database = None
-
-def initDatabase():
-    global database
-    database = mysql.connector.connect(
-        host='localhost',
-        user='root',
-        password='Weronka97',
-        database='todoappdatabase'
-    )
+database = mysql.connector.connect(
+    host='localhost',
+    user='root',
+    password='Weronka97',
+    database='todoappdatabase'
+)
 
 
 def saveToDatabase(thing):
@@ -121,4 +117,4 @@ def markTaskDone(id):
     return checkedThing
 
 
-initDatabase()
+
