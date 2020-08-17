@@ -11,7 +11,7 @@ thingsToSend = []
 database = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='Weronka97',
+    password='haslo',
     database='todoappdatabase'
 )
 
