@@ -1,6 +1,7 @@
 const urlRequest = 'http://127.0.0.1:5000/things';
 const inputWithText = document.getElementById('writtenThing');
 const tasksCounter = document.getElementById('countingText');
+let base, dragging, draggedOver;
 
 
 takeSavedThings()
@@ -119,6 +120,7 @@ inputWithText.addEventListener("keyup", function(event) {
 
     function createParagraph(thingText, checkButton, deleteButton, thingId, isDone) {
         let newParagraph = document.createElement('p');
+
         if (isDone === 0) {
             checkButton.classList.remove('marked');
             thingText.classList.remove('strikethroughText')
@@ -131,8 +133,37 @@ inputWithText.addEventListener("keyup", function(event) {
         newParagraph.appendChild(thingText)
         newParagraph.appendChild(deleteButton)
         newParagraph.id = thingId;
+
+        newParagraph.draggable = true;
+        newParagraph.addEventListener('dragstart', handleDragStart);
+        newParagraph.addEventListener('dragover', handleDragOver);
+        newParagraph.addEventListener('drop', handleDrop)
+
         return newParagraph;
 
+    }
+
+    function handleDragStart(event) {
+        const id = this.id;
+        event.dataTransfer.setData('target-id', id);
+        event.dataTransfer.setData('start-y', event.y);
+    }
+
+    function handleDragOver(event) {
+        event.preventDefault();
+    }
+
+    function handleDrop(event) {
+        event.preventDefault();
+        const dropElement = this;
+        const dragTargetId = event.dataTransfer.getData('target-id');
+        const dragElement = document.getElementById(dragTargetId);
+
+        if (event.y - event.dataTransfer.getData('start-y') < 0) {
+            dropElement.before(dragElement);
+        } else {
+            dropElement.after(dragElement);
+        }
     }
 
     function removeParagraph(newParagraph, isDone, thingId) {

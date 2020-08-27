@@ -28,8 +28,8 @@ p {
     margin: 10px 50px;
     text-align: left;
     display: inline-block;
-    background-color: rgba(248, 248, 248, 0.92);
-    box-shadow: 5px 5px #f3f2f2;
+    background-color: rgba(245, 245, 245, 0.92);
+    box-shadow: 5px 5px #eaeaea;
 }
 #input-div {
     padding: 0.5em;
